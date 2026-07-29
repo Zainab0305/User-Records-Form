@@ -1,16 +1,16 @@
 # User-Records-Form
 
-A simple form (Name, Age, Submit button) that stores data in a database, displays it in a table, and lets you toggle each record's status between 0 and 1 instantly via JavaScript (fetch).
+A simple form (Name, Age, Submit button) that stores data in a database, displays it in a table on the same page, and lets you toggle each record's status between 0 and 1 instantly via JavaScript.
 
 🔗 https://zai.free.je/index.html 
 
 # Files
 
-index.html:	The form page (Name, Age, Submit button)
+index.html:	The form page + empty table, filled in by JavaScript
 
-in.php:	Receives the form data, inserts it into the database, displays the table, and handles toggle requests
+in.php: Handles 3 requests: list records (JSON), insert a record, toggle a record's status
 
-script.js: Sends the toggle request via fetch and updates the status cell instantly without reloading
+script.js: Loads the table on page load, submits the form via fetch, and handles toggling
 
 style2.css:	Page styling
 
@@ -20,20 +20,8 @@ Note: config.php is not included in this repository because
 
 it contains sensitive connection details (database username and password).
 
-# Setup on InfinityFree
-
-1- Create a database from the InfinityFree control panel (MySQL Databases)
-
-2- Open phpMyAdmin, select your database, and import users.sql from the Import tab 
-
-3- Create config.php manually with your real credentials
-
-4- Upload all files (index.html, in.php, script.js, style2.css, config.php) to the htdocs folder
-
-5- Open index.html in your browser, enter a name and age, and click Submit
-
-after click Submit, the table that contain the data will displays with the toggle button.
-
 # How Toggle works
 
-Clicking Toggle sends the record's ID to in.php, which flips its status in the database and sends back the new value (0 or 1). script.js then updates just that cell on the page, no reload needed.
+-Adding a record: submitting the form is intercepted by JavaScript (e.preventDefault()), which sends the data to in.php via fetch, then reloads the table.
+
+-Toggling status: clicking Toggle sends the record's ID to in.php, which flips its status in the database and returns the new value (0 or 1). script.js updates just that cell.
